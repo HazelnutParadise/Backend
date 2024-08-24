@@ -4,10 +4,11 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"internalServer/jsonutil"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/HazelnutParadise/Go-Utils/jsonutil"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
@@ -16,7 +17,7 @@ import (
 var db map[string]*sql.DB
 
 func InitAndSetRoutes(router *gin.RouterGroup) {
-	databasePaths, _ := jsonutil.LoadAndQueryJSON("config.json", "databases")
+	databasePaths, _ := jsonutil.LoadJSONFileAndExtractSubMap("config.json", "databases")
 	db = make(map[string]*sql.DB)
 
 	for key, path := range databasePaths {
